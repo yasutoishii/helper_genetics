@@ -2,8 +2,9 @@ Here, helper scripts for genetic analyses are distributed.
 If you have any questions or want to ask me anything, please contact y.ishii.biology[at]gmail.com.
 
 # Menu
-  [Scripts](#scripts): A list of scripts and brief explanation.  
-  [Brief usages](#brief-usages): Brief usages of the scripts.
+  [Scripts](#scripts): A list of scripts and brief explanation  
+  [Brief usages](#brief-usages): Brief usages of the scripts  
+  [Dependencies](#dependencies): Dependencies of the scripts
 
 # Scripts
 - **migrateFromNexus.py**  
@@ -26,4 +27,8 @@ If you have any questions or want to ask me anything, please contact y.ishii.bio
   sample3   pop2
   ```  
 
-
+# Dependencies
+- **migrateFromNexus.py**  
+  - Biopython
+  - Pandas
+  - argparse
