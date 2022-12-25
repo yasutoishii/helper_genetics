@@ -59,8 +59,8 @@ class nexus2migration:
         output_str = "   {0} {1} Title\n".format(len(self.pop_df["pop"].unique()),
                                                  len(self.seq_dat.charsets))    # header
         ### Error checker ###
-        if self.seq_dat.unaltered_taxlabels != self.pop_df["id"].tolist():
-            print("Error: No of samples do not match in the sequence file and"+
+        if set(self.seq_dat.unaltered_taxlabels) != set(self.pop_df["id"].tolist()):
+            print("Error: No of samples do not match in the sequence file and "+
                   "the population file!")
             exit()
 
