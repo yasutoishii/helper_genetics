@@ -18,7 +18,7 @@ If you have any questions or want to ask me anything, please contact y.ishii.bio
   The input file must be nexus format.  
   The population file discribe which population each individual is assigned to.  
   The file is tab-delimited and without a header.  
-  The first column is sample IDs an the second column is population name.  
+  The first column is sample IDs and the second column is population name.  
   For example:
   ```
   sample1   pop1
