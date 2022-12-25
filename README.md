@@ -3,11 +3,11 @@ If you have any questions or want to ask me anything, please contact y.ishii.bio
 
 # Menu
   [Scripts](#scripts): A list of scripts and brief explanation.  
-  [Brief usages](#brief-usages): Usages of the scripts.
+  [Brief usages](#brief-usages): Brief usages of the scripts.
 
 # Scripts
 - **migrateFromNexus.py**  
-  This script generates a input file for [migrate-n] (https://peterbeerli.com/migrate-html5/) from a nexus file.  
+  This script generates a input file for [migrate-n](https://peterbeerli.com/migrate-html5/) from a nexus file.  
   It assume that all locus are unlinked.  
 
 # Brief usages
