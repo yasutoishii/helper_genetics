@@ -3,6 +3,7 @@
 from Bio.Nexus.Nexus import Nexus
 import pandas as pd
 import argparse
+import random
 
 def get_args():
     psr  = argparse.ArgumentParser(
@@ -29,6 +30,10 @@ def get_args():
                      '--isloud',
                      help="[Optional; Default=True] Should print log? [True, False]",
                      default=True)
+    psr.add_argument('--num_locus',
+                     help="[Optional; Default=Use All locus] How many locus do you use? [integral number]",
+                     type=int,
+                     default=None)
     args = psr.parse_args()
     
     return args
@@ -38,12 +43,14 @@ class nexus2migration:
                  seq_file,
                  pop_file,
                  output_file,
-                 is_loud):
+                 is_loud,
+                 num_locus):
         ### Parameters ###
         self.seq_file = seq_file    # Input nexus file
         self.pop_file = pop_file    # Population file
         self.output_file = output_file    # Output file
         self.is_loud = is_loud    # Whether print log?
+        self.num_locus = num_locus
         
         ### Objects ###
         self.seq_dat = Nexus()
@@ -55,14 +62,26 @@ class nexus2migration:
             
     def convert(self):
         done_len_warning = False
-        locus_nams = self.seq_dat.charsets.keys()
-        output_str = "   {0} {1} Title\n".format(len(self.pop_df["pop"].unique()),
-                                                 len(self.seq_dat.charsets))    # header
+
         ### Error checker ###
         if set(self.seq_dat.unaltered_taxlabels) != set(self.pop_df["id"].tolist()):
             print("Error: No of samples do not match in the sequence file and "+
                   "the population file!")
             exit()
+        if self.num_locus > len(self.seq_dat.charsets):
+            print("Error: Too large num_locus value")
+            exit()
+
+        if self.num_locus != 0:
+            charset_temp = dict()
+            keys_temp = random.sample(list(self.seq_dat.charsets.keys()), self.num_locus)
+            for key in keys_temp:
+                charset_temp[key] = self.seq_dat.charsets[key]
+            self.seq_dat.charsets = charset_temp
+
+        locus_nams = self.seq_dat.charsets.keys()
+        output_str = "   {0} {1} Title\n".format(len(self.pop_df["pop"].unique()),
+                                                 len(self.seq_dat.charsets))    # header
 
         if self.is_loud:
             print("No of locus is: {0}".format(len(locus_nams)))
@@ -90,7 +109,7 @@ class nexus2migration:
                             done_len_warning = True
                 else:
                     id10 = id.ljust(10)
-                output_str += id10 + " "
+                output_str += id10
 
                 for locus_nam in locus_nams:
                     output_str += str(self.seq_dat.matrix[id]
@@ -108,7 +127,8 @@ if __name__ == '__main__':
     conv_obj = nexus2migration(args.input,
                                args.popfile,
                                args.output,
-                               args.isloud)
+                               args.isloud,
+                               args.num_locus)
     output_str = conv_obj.convert()
     conv_obj.save(output_str)
     
