@@ -11,6 +11,14 @@ If you have any questions or want to ask me anything, please contact y.ishii.bio
   This script generates a input file for [migrate-n](https://peterbeerli.com/migrate-html5/) from a nexus file.  
   It assume that all locus are unlinked.  
 
+- **MIGseq_qc.sh**  
+  Trim adaptors and filtering by quality to assembly a MIGseq library.  
+  Modify parameter values (the details of variables are written in the script).  
+  For assembly with stacks, the length of filtered reads are the same; otherwise, stacks may raise an error.  
+  The length is specified by `OUTPUT_LEN`.  
+  In my experience, when I shortened the reads, I got more reads and loci; `OUTPUT_LEN`=100 may be good even if you have 150PE reads.  
+  Note that `N_THREADS` should be set as you like (default: 15).    
+
 # Brief usages
 - **migrateFromNexus.py**  
   ```bash
@@ -27,7 +35,13 @@ If you have any questions or want to ask me anything, please contact y.ishii.bio
   sample3   pop2
   ```  
 
-# Dependencies
+- **MIGseq_qc.sh**  
+  Usage:
+  ```bash
+  bash MIGseq_qc.sh
+  ```
+
+# Dependencies  
 - **migrateFromNexus.py**  
   - Biopython
   - Pandas
