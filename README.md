@@ -19,6 +19,9 @@ If you have any questions or want to ask me anything, please contact y.ishii.bio
   In my experience, when I shortened the reads, I got more reads and loci; `OUTPUT_LEN`=100 may be good even if you have 150PE reads.  
   Note that `N_THREADS` should be set as you like (default: 15).    
 
+- **vcf_bootstrap_rad.py**  
+  This script bootstrap SNPs in a VCF file genotyped by reduced-representation sequencing (eg. RAD-seq).   
+
 # Brief usages
 - **migrateFromNexus.py**  
   ```bash
@@ -40,6 +43,15 @@ If you have any questions or want to ask me anything, please contact y.ishii.bio
   ```bash
   bash MIGseq_qc.sh
   ```
+
+- **vcf_bootstrap_rad.py**  
+  ```bash
+  vcf_bootstrap_rad.py -i your.vcf -n 100 --blocked_bootstrap
+  ```
+  `-i`: The input VCF file  
+  `-n`: # of bootstrap sampling  
+  `--blocked_bootstrap`: performing blocked bootstrapping. If not specified, normal bootstraping is conducted.    
+
 
 # Dependencies  
 - **migrateFromNexus.py**  
