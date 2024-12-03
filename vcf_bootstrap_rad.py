@@ -68,7 +68,12 @@ if __name__ == "__main__":
         if does_blocked_bootstrap == True:   
             chunks = [chunk for _, chunk in snps_df.groupby("CHROM")]
             sampled_chunks = [chunks[i] for i in pd.Series(range(len(chunks))).sample(len(chunks), replace = True).sort_values()]
-            sampled_df = pd.concat(sampled_chunks, ignore_index = True)   
+            
+            ### Label "CHROM" column with unique numbers for each sampled chunk
+            sampled_df = pd.concat(
+                sampled_chunks, 
+                ignore_index=True
+            ).assign(CHROM=lambda df: pd.Series(range(1, len(sampled_chunks) + 1)).repeat([len(chunk) for chunk in sampled_chunks]).values)
 
         ### Normal bootstrapping
         else:
